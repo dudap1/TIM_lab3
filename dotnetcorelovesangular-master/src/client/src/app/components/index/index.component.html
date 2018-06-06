@@ -1,0 +1,32 @@
+<div class="col-12 row">
+  <div class="col-4">
+    <h2>Values can be seen by everyone</h2>
+    <div *ngFor="let v of values">{{v}}</div>
+  </div>
+  <div class="col-4">
+    <h2>Form can be submitted by any user</h2>
+    <form #f="ngForm" (ngSubmit)="submit()" novalidate>
+      <div class="form-group">
+        <div class="input-group">
+          <input id="value" type="text" class="form-control" name="value" [(ngModel)]="data.value" required #value="ngModel">
+        </div>
+      </div>
+      <button *ngIf="auth.isAuthenticated()" class="btn btn-outline-primary">Submit</button>
+      <button *ngIf="!auth.isAuthenticated()" class="btn btn-outline-primary" disabled>Submit</button>
+    </form>
+  </div>
+  <div class="col-4">
+    <h2>Can be deleted only by admin</h2>
+    <button *ngIf="auth.isInRole('admin')" class="btn btn-outline-danger" (click)="delete()">Remove</button>
+    <button *ngIf="!auth.isInRole('admin')" class="btn btn-outline-danger" (click)="delete()" disabled>Remove</button>
+  </div>
+</div>
+<div class="row justify-content-center">
+  <div class="col-4">
+    <h2>Response from the server:</h2>
+    <div *ngIf="result">
+      <button [ngClass]="'result.status == 200' ? 'btn btn-success' : ('result.status == 401 || result.status == 403'? 'btn btn-warning' : 'btn btn-danger')" (click)="responseHover()">{{result.status}}</button>
+    </div>
+    <pre *ngIf="showResponse">{{result|json}}</pre>
+  </div>
+</div>

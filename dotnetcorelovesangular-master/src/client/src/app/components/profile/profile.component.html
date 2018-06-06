@@ -1,0 +1,13 @@
+<div *ngIf="auth.isAuthenticated()">
+  <div class="panel-heading">
+    <h3>Profile</h3>
+    <div *ngIf="auth.isInRole('admin')" >Admin</div>
+  </div>
+  <div class="panel-body">
+    <img src="{{auth.userProfile.picture}}" class="avatar" alt="avatar">
+    <pre class="full-profile">{{ auth.userProfile | json }}</pre>
+  </div>
+</div>
+<div *ngIf="!auth.isAuthenticated()">
+  <h3>Login to view a profile</h3>
+</div>

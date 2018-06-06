@@ -1,0 +1,7 @@
+<nav class="navbar navbar-light bg-light">
+  <button class="btn btn-outline-success" [routerLink]="['/index']">Index</button>
+  <button class="btn btn-outline-success" [routerLink]="['/profile']">Profile</button>
+  <button class="btn btn-outline-success" *ngIf="!auth.isAuthenticated()" (click)="auth.login()">Log In</button>
+  <button class="btn btn-outline-warning" *ngIf="auth.isAuthenticated()" (click)="auth.logout()">Log Out</button>
+</nav>
+<router-outlet></router-outlet>
